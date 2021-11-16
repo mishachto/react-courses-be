@@ -3,15 +3,14 @@ import { signUp, verifyToken, deactivateUserToken, singIn, forgotPassword } from
 import { createUser, updateUserById, verifyUserEmail, resetPassword } from '../services/User.service';
 import { UsersModel } from '../models/User.model';
 
+
+
 export const signUpRequestCtrl = async (ctx: ParameterizedContext) => {
     const { body } = ctx.request;
-
     const trx = await UsersModel.startTransaction();
-
-    const user = await createUser(body, trx)
-    await signUp(user.id, trx);
+    const user = await createUser(body, trx);
+    await signUp(user.id, trx, body.email);
     trx.commit();
-
     ctx.ok()
 }
 
@@ -19,6 +18,8 @@ export const accountActivationCtrl = async (ctx: ParameterizedContext) => {
     const { query: { token } } = ctx;
     const { body } = ctx.request;
 
+    
+    // console.log(token, body);
     const userId = await verifyToken(token as string);
     const { first_name, last_name, id } = await updateUserById({ ...body, is_active: true }, userId);
     await deactivateUserToken(id)
@@ -27,10 +28,9 @@ export const accountActivationCtrl = async (ctx: ParameterizedContext) => {
 }
 
 export const verifyTokenCtrl = async (ctx: ParameterizedContext) => {
+    
     const { query: { token } } = ctx;
-
     const result = await verifyToken(token as string);
-
     ctx.ok(result);
 }
 
@@ -50,11 +50,15 @@ export const forgotPasswordCtrl = async (ctx: ParameterizedContext) => {
 }
 
 export const resetPasswordCtrl = async (ctx: ParameterizedContext) => {
-  const { query: { token } } = ctx;
-  const { body } = ctx.request;
+    const { query: { token } } = ctx;
+    const { body } = ctx.request;
 
-  const userId = await verifyToken(token as string);
-  const { id } = await resetPassword(body, userId)
-  await deactivateUserToken(id)
-  ctx.ok({ data: "ok" })
+    const userId = await verifyToken(token as string);
+    const { id } = await resetPassword(body, userId)
+    await deactivateUserToken(id)
+    ctx.ok({ data: "ok" })
 }
+
+
+
+

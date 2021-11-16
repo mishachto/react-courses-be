@@ -6,7 +6,7 @@ require('dotenv').config()
 interface IConfigSettings {
     host: string;
     user: string;
-    port: string | number;
+    port: string;
     password: string;
     database: string;
     SECRET_KEY: string;
@@ -26,27 +26,27 @@ const config: IConfig = {
         SECRET_KEY: "asd23j34jf983jfoiqwej98d342q09gfqkw"
     },
     qa: {
-        host: "ec2-54-73-110-26.eu-west-1.compute.amazonaws.com",
-        database: "d3p2etlvl7e8gr",
-        user:     'uhedcqwspchslt',
-        password: '5f2e1d6f25813353eb468405fe1c4c1f43f4fa8d984546ee6016d6efea95b651',
-        port: 5432,
+        host: "",
+        user: "",
+        password: "",
+        port: "",
+        database: "",
         SECRET_KEY: "asd23j34jf983jfoiqwej98d342q09gfqkw"
     },
     uat: {
-        host: "ec2-54-73-110-26.eu-west-1.compute.amazonaws.com",
-        database: "d3p2etlvl7e8gr",
-        user:     'uhedcqwspchslt',
-        password: '5f2e1d6f25813353eb468405fe1c4c1f43f4fa8d984546ee6016d6efea95b651',
-        port: 5432,
+        host: "",
+        user: "",
+        password: "",
+        port: "",
+        database: "",
         SECRET_KEY: "asd23j34jf983jfoiqwej98d342q09gfqkw"
     },
     prod: {
-        host: "ec2-54-73-110-26.eu-west-1.compute.amazonaws.com",
-        database: "d3p2etlvl7e8gr",
-        user:     'uhedcqwspchslt',
-        password: '5f2e1d6f25813353eb468405fe1c4c1f43f4fa8d984546ee6016d6efea95b651',
-        port: 5432,
+        host: "",
+        user: "",
+        password: "",
+        port: "",
+        database: "",
         SECRET_KEY: "asd23j34jf983jfoiqwej98d342q09gfqkw"
     }
 }
